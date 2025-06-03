@@ -3,7 +3,21 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Golden Anime</title>
+  <title>Golden Anime - Full Anime Movies Site</title>
+  
+  <!-- ✅ Meta Tags for SEO -->
+  <meta name="description" content="Golden Anime offers full HD anime movies and series. Watch your favorite anime free.">
+  <meta name="keywords" content="Anime, Full Anime Movies, HD Anime, Anime Series, Watch Anime Free">
+  <meta name="author" content="Golden Anime">
+  <meta name="robots" content="index, follow">
+
+  <!-- ✅ Open Graph Tags for Social Sharing -->
+  <meta property="og:title" content="Golden Anime - Full Anime Movies Site" />
+  <meta property="og:description" content="Watch full anime movies and series for free on Golden Anime." />
+  <meta property="og:image" content="image.jpg" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://yourgithubusername.github.io/your-repo/" />
+
   <style>
     * {
       margin: 0;
@@ -18,7 +32,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-start;
       min-height: 100vh;
       padding: 20px;
     }
@@ -28,8 +42,16 @@
       margin-bottom: 30px;
     }
 
+    .logo {
+      width: 100px;
+      height: auto;
+      border-radius: 50%;
+      border: 3px solid #facc15;
+      margin-bottom: 15px;
+    }
+
     .gold-glow {
-      font-size: 3em;
+      font-size: 2.5em;
       font-weight: bold;
       text-shadow: 0 0 10px #facc15, 0 0 20px #facc15;
     }
@@ -39,13 +61,14 @@
       border: 2px solid #facc15;
       border-radius: 20px;
       padding: 20px;
-      max-width: 500px;
+      max-width: 600px;
       width: 100%;
       text-align: center;
       backdrop-filter: blur(10px);
+      margin-bottom: 20px;
     }
 
-    .card img {
+    .card img.hero {
       width: 100%;
       border-radius: 15px;
       border: 3px solid #facc15;
@@ -61,6 +84,7 @@
       text-decoration: none;
       font-weight: bold;
       transition: background 0.3s ease;
+      margin: 10px;
     }
 
     .btn:hover {
@@ -71,23 +95,42 @@
       margin-top: 40px;
       font-size: 0.9em;
       color: #d1b74b;
+      text-align: center;
+    }
+
+    .description {
+      color: #fef3c7;
+      margin-top: 20px;
+      font-size: 1em;
     }
   </style>
 </head>
 <body>
 
   <header>
+    <!-- ✅ Logo -->
+    <img src="image.jpg" alt="Golden Anime Logo" class="logo">
     <h1 class="gold-glow">🌟 Golden Anime 🌟</h1>
     <p>Your portal to radiant anime vibes</p>
   </header>
 
   <section class="card">
-    <img src="https://i.imgur.com/qsCuxYT.jpeg" alt="Anime Hero" />
+    <img src="https://i.imgur.com/qsCuxYT.jpeg" alt="Anime Hero" class="hero" />
     <h2>Featured Hero: Kin no Senshi</h2>
     <p style="margin: 15px 0;">
       A warrior forged in flames, destined to illuminate the shadows. Explore epic tales, golden powers, and timeless battles.
     </p>
-    <a href="#" class="btn">Explore Now</a>
+
+    <!-- ✅ New Paragraph -->
+    <div class="description">
+      Golden Anime is a platform where you can watch full anime movies and series in HD, completely free. We bring you the best stories from the anime universe. If you're a copyright owner and want your content removed, please contact us.
+    </div>
+
+    <!-- ✅ Buttons -->
+    <div style="margin-top: 20px;">
+      <a href="https://yourmainwebsite.com" class="btn">Main Website</a>
+      <a href="mailto:contact@yourdomain.com?subject=DMCA%20Request" class="btn">DMCA / Contact Us</a>
+    </div>
   </section>
 
   <footer>
