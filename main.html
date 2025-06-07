@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Basic Meta Tags -->
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Golden Anime Main – Dark anime & spooky movie streaming platform with a vibrant, shifting background." />
+  <meta name="keywords" content="Golden Anime, anime streaming, dark theme, spooky, movie carousel, responsive" />
+  <meta name="author" content="Golden Anime Team" />
+  <meta name="theme-color" content="#121212" />
+
+  <!-- Open Graph / Social Meta Tags -->
+  <meta property="og:title" content="Golden Anime Main" />
+  <meta property="og:description" content="Dive into a dark, spooky anime world—explore our latest movie selection in a vibrant, color‐shifting interface." />
+  <meta property="og:image" content="https://your-domain.com/images/images.jpeg" />
+  <meta property="og:url" content="https://your-domain.com/main.html" />
+  <meta property="og:type" content="website" />
+
+  <title>Golden Anime Main</title>
+
+  <style>
+    /* ---------- Base Reset ---------- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html, body {
+      height: 100%;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #e0e0e0;
+      background-color: #121212;
+      overflow-x: hidden;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* ---------- Loading Overlay ---------- */
+    #loader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: #121212;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+    .spinner {
+      border: 6px solid rgba(255, 255, 255, 0.1);
+      border-top: 6px solid #ffd700;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    /* Hide content until loader finishes */
+    #content {
+      display: none;
+    }
+
+    /* ---------- Animated Gradient Background ---------- */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: linear-gradient(45deg, #1a1a1a, #2b2b2b, #1a1a1a);
+      background-size: 300% 300%;
+      animation: gradientShift 15s ease infinite;
+      z-index: -1;
+    }
+    @keyframes gradientShift {
+      0%   { background-position: 0%   50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position: 0%   50%; }
+    }
+
+    /* ---------- Header / Logo ---------- */
+    header {
+      width: 100%;
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(5px);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+    }
+    .logo-img {
+      width: 50px;
+      height: 50px;
+      object-fit: cover;
+      border-radius: 6px;
+      box-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
+      margin-right: 10px;
+    }
+    .logo-text {
+      font-size: 1.75rem;
+      font-weight: bold;
+      letter-spacing: 1px;
+      color: #ffd700;
+      text-shadow: 0 0 5px rgba(255, 215, 0, 0.7);
+    }
+
+    /* ---------- Carousel Container ---------- */
+    .carousel-container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 2rem auto;
+      position: relative;
+      overflow: hidden;
+      border-radius: 10px;
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.7);
+    }
+    .carousel-slides {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+    }
+    .carousel-slide {
+      min-width: 100%;
+      user-select: none;
+    }
+    .carousel-slide img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* ---------- Content Grid ---------- */
+    .content-section {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+    .content-title {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: #ffd700;
+      text-shadow: 0 0 4px rgba(255, 215, 0, 0.6);
+      text-align: center;
+    }
+    .content-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 1rem;
+    }
+    .content-item {
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
+      transition: transform 0.2s ease;
+    }
+    .content-item:hover {
+      transform: scale(1.05);
+    }
+    .content-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* ---------- DMCA Section ---------- */
+    .dmca-section {
+      text-align: center;
+      margin: 2rem 0;
+      padding: 1rem 2rem;
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 8px;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .btn-dmca {
+      padding: 0.6rem 1.8rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+      border-radius: 20px;
+      background: transparent;
+      color: #ff6666;
+      border: 2px solid #ff6666;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease;
+      margin-bottom: 0.5rem;
+    }
+    .btn-dmca:hover {
+      transform: scale(1.05);
+      background: rgba(255, 102, 102, 0.1);
+      box-shadow: 0 0 10px rgba(255, 102, 102, 0.6);
+    }
+    .dmca-text {
+      font-size: 0.95rem;
+      color: #f0f0f0;
+      line-height: 1.4;
+    }
+
+    /* ---------- Footer ---------- */
+    footer {
+      margin-top: auto;
+      padding: 1.5rem 2rem;
+      background: rgba(0, 0, 0, 0.6);
+      text-align: center;
+      font-size: 0.9rem;
+      color: #888;
+    }
+    footer a {
+      color: #ffd700;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* ---------- Responsive Adjustments ---------- */
+    @media (max-width: 768px) {
+      .carousel-container {
+        margin: 1rem auto;
+      }
+      .content-title {
+        font-size: 1.25rem;
+      }
+      .content-grid {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 0.75rem;
+      }
+      header {
+        padding: 0.75rem 1rem;
+      }
+      .logo-img {
+        width: 40px;
+        height: 40px;
+      }
+      .logo-text {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Loading Overlay -->
+  <div id="loader">
+    <div class="spinner"></div>
+  </div>
+
+  <!-- Main Content (hidden until loader finishes) -->
+  <div id="content">
+    <!-- Header with Logo -->
+    <header>
+      <div class="logo">
+        <img src="images/images.jpeg" alt="Golden Anime Logo" class="logo-img" />
+        <span class="logo-text">Golden Anime</span>
+      </div>
+    </header>
+
+    <!-- Carousel Section -->
+    <div class="carousel-container">
+      <div class="carousel-slides" id="carousel-slides">
+        <!-- Slides will be injected here via JavaScript -->
+      </div>
+    </div>
+
+    <!-- Content Grid Section -->
+    <section class="content-section">
+      <h2 class="content-title">Featured Movies</h2>
+      <div class="content-grid" id="content-grid">
+        <!-- Content items will be injected here via JavaScript -->
+      </div>
+    </section>
+
+    <!-- DMCA Section -->
+    <div class="dmca-section">
+      <button class="btn-dmca" onclick="location.href='dmca.html'">DMCA Report</button>
+      <p class="dmca-text">
+        If someone wants to remove any copyrighted content from our website,
+        please contact us. We take intellectual property seriously and will promptly 
+        review and honor removal requests.
+      </p>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      &copy; 2025 Golden Anime. All rights reserved. 
+      <br />
+      <a href="index.html">Home</a> | <a href="#">Privacy Policy</a>
+    </footer>
+  </div>
+
+  <!-- JavaScript for Loader, Carousel, and Content Generation -->
+  <script>
+    // Loader: show spinner for 3 seconds, then reveal content
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        const loader = document.getElementById('loader');
+        const content = document.getElementById('content');
+        loader.style.opacity = '0';
+        loader.style.transition = 'opacity 0.5s ease';
+        setTimeout(() => {
+          loader.style.display = 'none';
+          content.style.display = 'block';
+        }, 500);
+      }, 3000);
+    });
+
+    // Sample content data array: add more items as needed
+    const contentData = [
+      {
+        image: 'image1.jpg',
+        link: 'movie1.html'
+      },
+      {
+        image: 'image2.jpg',
+        link: 'movie2.html'
+      },
+      {
+        image: 'image3.jpg',
+        link: 'movie3.html'
+      },
+      {
+        image: 'image4.jpg',
+        link: 'movie4.html'
+      }
+      // ... you can append more { image: 'imageX.jpg', link: 'movieX.html' }
+    ];
+
+    // Insert content items into the grid
+    function generateContentGrid() {
+      const gridContainer = document.getElementById('content-grid');
+      contentData.forEach(item => {
+        const anchor = document.createElement('a');
+        anchor.href = item.link;
+        anchor.classList.add('content-item');
+        const img = document.createElement('img');
+        img.src = item.image;
+        img.alt = 'Movie Thumbnail';
+        anchor.appendChild(img);
+        gridContainer.appendChild(anchor);
+      });
+    }
+
+    // Initialize carousel slides
+    function generateCarousel() {
+      const slidesContainer = document.getElementById('carousel-slides');
+      contentData.forEach(item => {
+        const slideDiv = document.createElement('div');
+        slideDiv.classList.add('carousel-slide');
+        const anchor = document.createElement('a');
+        anchor.href = item.link;
+        const img = document.createElement('img');
+        img.src = item.image;
+        img.alt = 'Featured Movie';
+        anchor.appendChild(img);
+        slideDiv.appendChild(anchor);
+        slidesContainer.appendChild(slideDiv);
+      });
+    }
+
+    // Carousel auto-slide logic
+    function startCarousel() {
+      const slidesContainer = document.getElementById('carousel-slides');
+      const totalSlides = contentData.length;
+      let currentIndex = 0;
+
+      setInterval(() => {
+        currentIndex = (currentIndex + 1) % totalSlides;
+        const translateX = -currentIndex * 100;
+        slidesContainer.style.transform = `translateX(${translateX}%)`;
+      }, 2000);
+    }
+
+    // On DOM ready, build content and carousel
+    document.addEventListener('DOMContentLoaded', () => {
+      generateContentGrid();
+      generateCarousel();
+      startCarousel();
+    });
+  </script>
+</body>
+</html>
