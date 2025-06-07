@@ -1,141 +1,442 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Basic Meta Tags -->
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Golden Anime - Full Anime Movies Site</title>
-  
-  <!-- ✅ Meta Tags for SEO -->
-  <meta name="description" content="Golden Anime offers full HD anime movies and series. Watch your favorite anime free.">
-  <meta name="keywords" content="Anime, Full Anime Movies, HD Anime, Anime Series, Watch Anime Free">
-  <meta name="author" content="Golden Anime">
-  <meta name="robots" content="index, follow">
-
-  <!-- ✅ Open Graph Tags for Social Sharing -->
-  <meta property="og:title" content="Golden Anime - Full Anime Movies Site" />
-  <meta property="og:description" content="Watch full anime movies and series for free on Golden Anime." />
-  <meta property="og:image" content="image.jpg" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Golden Anime—your gateway to untold adventures under a shifting glow of wonder." />
+  <meta name="keywords" content="Golden Anime, anime, movies, adventure, vibrant, dark theme, cozy" />
+  <meta name="author" content="Golden Anime Team" />
+  <meta name="theme-color" content="#121212" />
+  <!-- Open Graph / Social Meta Tags -->
+  <meta property="og:title" content="Golden Anime" />
+  <meta property="og:description" content="Golden Anime—explore epic journeys, hidden treasures, and cozy adventures beneath a vibrant night sky." />
+  <meta property="og:image" content="https://your-domain.com/image.jpg" />
+  <meta property="og:url" content="https://your-domain.com/" />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://yourgithubusername.github.io/your-repo/" />
+
+  <title>Golden Anime</title>
 
   <style>
+    /* ------------ Base Reset ------------ */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
-
-    body {
-      background: linear-gradient(to right, #1e1e1e, #2e2e2e);
-      color: #fcd34d;
+    html, body {
+      height: 100%;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #e0e0e0;
+      background-color: #121212;
+      overflow-x: hidden;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* ------------ Loading Overlay ------------ */
+    #loader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: #121212;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+    .spinner {
+      border: 6px solid rgba(255, 255, 255, 0.1);
+      border-top: 6px solid #ffd700;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Hide content until loader finishes */
+    #content {
+      display: none;
+    }
+
+    /* ------------ Animated Gradient Background ------------ */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: linear-gradient(45deg, #1a1a1a, #2b2b2b, #1a1a1a);
+      background-size: 300% 300%;
+      animation: gradientShift 15s ease infinite;
+      z-index: -1;
+    }
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* ------------ Light-Mode Overrides ------------ */
+    body.light-mode {
+      color: #121212;
+      background-color: #f4f4f4;
+    }
+    body.light-mode::before {
+      background: linear-gradient(45deg, #e0e0e0, #ffffff, #e0e0e0);
+      animation: gradientShiftLight 15s ease infinite;
+    }
+    @keyframes gradientShiftLight {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    body.light-mode header {
+      background: rgba(255, 255, 255, 0.4);
+      color: #121212;
+    }
+    body.light-mode .logo {
+      color: #121212;
+      text-shadow: none;
+    }
+    body.light-mode nav a {
+      color: #121212;
+    }
+    body.light-mode .hero h1 {
+      color: #121212;
+      text-shadow: none;
+    }
+    body.light-mode .hero p {
+      color: #333333;
+    }
+    body.light-mode .btn-primary {
+      background: #121212;
+      color: #ffd700;
+      box-shadow: 0 0 10px rgba(18, 18, 18, 0.5);
+    }
+    body.light-mode .btn-secondary {
+      background: transparent;
+      color: #121212;
+      border: 2px solid #121212;
+      box-shadow: 0 0 8px rgba(18, 18, 18, 0.4);
+    }
+    body.light-mode .dmca-section {
+      background: rgba(255, 255, 255, 0.5);
+    }
+    body.light-mode footer {
+      background: rgba(255, 255, 255, 0.6);
+      color: #555;
+    }
+    body.light-mode footer a {
+      color: #121212;
+    }
+
+    /* ------------ Header / Navigation ------------ */
+    header {
+      width: 100%;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(5px);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      transition: background 0.3s ease;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      font-size: 1.75rem;
+      font-weight: bold;
+      letter-spacing: 1px;
+      color: #ffd700; /* Golden accent */
+      text-shadow: 0 0 5px rgba(255, 215, 0, 0.7);
+      transition: color 0.3s ease, text-shadow 0.3s ease;
+    }
+    .logo-img {
+      height: 40px;
+      width: auto;
+      margin-right: 10px;
+      border-radius: 4px;
+      box-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+    }
+    nav a {
+      text-decoration: none;
+      color: #e0e0e0;
+      font-weight: 500;
+      position: relative;
+      transition: color 0.3s ease;
+    }
+    nav a::after {
+      content: "";
+      display: block;
+      width: 0;
+      height: 2px;
+      background: #ffd700;
+      transition: width 0.3s ease;
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+    }
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    /* Theme Toggler Button */
+    .theme-toggle {
+      background: transparent;
+      border: none;
+      color: #ffd700;
+      font-size: 1rem;
+      cursor: pointer;
+      padding: 0.4rem 0.8rem;
+      border-radius: 20px;
+      box-shadow: 0 0 6px rgba(255, 215, 0, 0.5);
+      transition: background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+    }
+    .theme-toggle:hover {
+      background: rgba(255, 215, 0, 0.1);
+      box-shadow: 0 0 8px rgba(255, 215, 0, 0.8);
+    }
+
+    /* ------------ Hero Section ------------ */
+    .hero {
+      height: calc(100vh - 84px); /* adjust based on header height */
       display: flex;
       flex-direction: column;
+      justify-content: center;
       align-items: center;
-      justify-content: flex-start;
-      min-height: 100vh;
-      padding: 20px;
-    }
-
-    header {
       text-align: center;
-      margin-bottom: 30px;
+      padding: 0 2rem;
+      transition: color 0.3s ease;
+    }
+    .hero h1 {
+      font-size: 3rem;
+      color: #ffd700;
+      text-shadow: 0 0 8px rgba(255, 215, 0, 0.8);
+      margin-bottom: 1rem;
+      transition: color 0.3s ease, text-shadow 0.3s ease;
+    }
+    .hero p {
+      max-width: 700px;
+      line-height: 1.6;
+      font-size: 1.125rem;
+      margin-bottom: 2rem;
+      color: #cccccc;
+      transition: color 0.3s ease;
+    }
+    .btn-primary,
+    .btn-secondary {
+      padding: 0.75rem 2rem;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease, color 0.3s ease;
+      margin: 0.5rem;
+    }
+    .btn-primary {
+      background: #ffd700;
+      color: #121212;
+      border: none;
+      box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+    }
+    .btn-primary:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 12px rgba(255, 215, 0, 0.8);
+    }
+    .btn-secondary {
+      background: transparent;
+      color: #ffd700;
+      border: 2px solid #ffd700;
+      box-shadow: 0 0 8px rgba(255, 215, 0, 0.4);
+    }
+    .btn-secondary:hover {
+      transform: scale(1.05);
+      background: rgba(255, 215, 0, 0.1);
+      box-shadow: 0 0 12px rgba(255, 215, 0, 0.7);
     }
 
-    .logo {
-      width: 100px;
-      height: auto;
-      border-radius: 50%;
-      border: 3px solid #facc15;
-      margin-bottom: 15px;
-    }
-
-    .gold-glow {
-      font-size: 2.5em;
-      font-weight: bold;
-      text-shadow: 0 0 10px #facc15, 0 0 20px #facc15;
-    }
-
-    .card {
-      background: rgba(92, 72, 15, 0.2);
-      border: 2px solid #facc15;
-      border-radius: 20px;
-      padding: 20px;
-      max-width: 600px;
-      width: 100%;
+    /* ------------ DMCA Section ------------ */
+    .dmca-section {
       text-align: center;
-      backdrop-filter: blur(10px);
-      margin-bottom: 20px;
-    }
-
-    .card img.hero {
-      width: 100%;
-      border-radius: 15px;
-      border: 3px solid #facc15;
-      margin-bottom: 20px;
-    }
-
-    .btn {
-      display: inline-block;
-      background: #facc15;
-      color: #000;
-      padding: 10px 20px;
-      border-radius: 999px;
-      text-decoration: none;
-      font-weight: bold;
+      margin: 2rem 0;
+      padding: 1rem 2rem;
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 8px;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
       transition: background 0.3s ease;
-      margin: 10px;
+    }
+    .btn-dmca {
+      padding: 0.6rem 1.8rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+      border-radius: 20px;
+      background: transparent;
+      color: #ff6666;
+      border: 2px solid #ff6666;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease;
+      margin-bottom: 0.5rem;
+    }
+    .btn-dmca:hover {
+      transform: scale(1.05);
+      background: rgba(255, 102, 102, 0.1);
+      box-shadow: 0 0 10px rgba(255, 102, 102, 0.6);
+    }
+    .dmca-text {
+      font-size: 0.95rem;
+      color: #f0f0f0;
+      line-height: 1.4;
+      transition: color 0.3s ease;
     }
 
-    .btn:hover {
-      background: #ffe066;
-    }
-
+    /* ------------ Footer ------------ */
     footer {
-      margin-top: 40px;
-      font-size: 0.9em;
-      color: #d1b74b;
+      margin-top: auto;
+      padding: 1.5rem 2rem;
+      background: rgba(0, 0, 0, 0.6);
       text-align: center;
+      font-size: 0.9rem;
+      color: #888;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+    footer a {
+      color: #ffd700;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    footer a:hover {
+      text-decoration: underline;
     }
 
-    .description {
-      color: #fef3c7;
-      margin-top: 20px;
-      font-size: 1em;
+    /* ------------ Responsive Adjustments ------------ */
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2.5rem; }
+      .hero p { font-size: 1rem; }
+      header { padding: 1rem; }
+      nav ul { gap: 1rem; }
     }
   </style>
 </head>
 <body>
+  <!-- Loading Overlay -->
+  <div id="loader">
+    <div class="spinner"></div>
+  </div>
 
-  <header>
-    <!-- ✅ Logo -->
-    <img src="image.jpg" alt="Golden Anime Logo" class="logo">
-    <h1 class="gold-glow">🌟 Golden Anime 🌟</h1>
-    <p>Your portal to radiant anime vibes</p>
-  </header>
+  <!-- Main Content (hidden until loader finishes) -->
+  <div id="content">
+    <!-- Header / Navigation -->
+    <header>
+      <div class="logo">
+        <img src="image.jpg" alt="Golden Anime Logo" class="logo-img" />
+        Golden Anime
+      </div>
+      <nav>
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Gallery</a></li>
+          <li><a href="#">Stories</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </nav>
+      <button class="theme-toggle" id="theme-toggle">Toggle Theme</button>
+    </header>
 
-  <section class="card">
-    <img src="https://i.imgur.com/qsCuxYT.jpeg" alt="Anime Hero" class="hero" />
-    <h2>Featured Hero: Kin no Senshi</h2>
-    <p style="margin: 15px 0;">
-      A warrior forged in flames, destined to illuminate the shadows. Explore epic tales, golden powers, and timeless battles.
-    </p>
+    <!-- Hero Section -->
+    <section class="hero">
+      <h1>Welcome to Golden Anime</h1>
+      <p>
+        Step into a world where tales come alive under a shifting tapestry of hues. 
+        Here, every horizon glimmers with possibility, inviting you to embark on epic 
+        journeys, discover hidden treasures, and lose yourself in moments of wonder. 
+        Embrace the cozy glow, chase after legends, and uncover stories that ignite 
+        the imagination.
+      </p>
+      <div>
+        <button class="btn-primary" onclick="location.href='#'">Explore Now</button>
+        <button class="btn-secondary" onclick="location.href='main.html'">Go to Main Website</button>
+      </div>
+    </section>
 
-    <!-- ✅ New Paragraph -->
-    <div class="description">
-      Golden Anime is a platform where you can watch full anime movies and series in HD, completely free. We bring you the best stories from the anime universe. If you're a copyright owner and want your content removed, please contact us.
+    <!-- (Optional) Additional Content Sections -->
+    <!--
+    <section class="featured">
+      <!-- You can add featured posts, trailers, or a rotating carousel here —
+           leave it hidden until you have images and content ready.
+    </section>
+    -->
+
+    <!-- DMCA Section -->
+    <div class="dmca-section">
+      <button class="btn-dmca" onclick="location.href='dmca.html'">DMCA Report</button>
+      <p class="dmca-text">
+        If someone wants to remove any copyrighted content from our website,
+        please contact us. We take intellectual property seriously and will promptly 
+        review and honor removal requests.
+      </p>
     </div>
 
-    <!-- ✅ Buttons -->
-    <div style="margin-top: 20px;">
-      <a href="https://yourmainwebsite.com" class="btn">Main Website</a>
-      <a href="mailto:contact@yourdomain.com?subject=DMCA%20Request" class="btn">DMCA / Contact Us</a>
-    </div>
-  </section>
+    <!-- Footer -->
+    <footer>
+      &copy; 2025 Golden Anime. All rights reserved. 
+      <br />
+      <a href="#">Terms of Service</a> | <a href="#">Privacy Policy</a>
+    </footer>
+  </div>
 
-  <footer>
-    &copy; 2025 Golden Anime. Powered by ✨ dreams & data.
-  </footer>
+  <!-- JavaScript for Loader and Theme Toggler -->
+  <script>
+    // Loader: show spinner for 3 seconds, then reveal content
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        const loader = document.getElementById('loader');
+        const content = document.getElementById('content');
+        loader.style.opacity = '0';
+        loader.style.transition = 'opacity 0.5s ease';
+        setTimeout(() => {
+          loader.style.display = 'none';
+          content.style.display = 'block';
+        }, 500);
+      }, 3000);
+    });
 
+    // Theme Toggler: switch between dark and light modes
+    const toggleButton = document.getElementById('theme-toggle');
+    toggleButton.addEventListener('click', () => {
+      document.body.classList.toggle('light-mode');
+      // Optional: store preference in localStorage
+      if (document.body.classList.contains('light-mode')) {
+        localStorage.setItem('theme', 'light');
+      } else {
+        localStorage.setItem('theme', 'dark');
+      }
+    });
+
+    // Preserve user preference on reload
+    document.addEventListener('DOMContentLoaded', () => {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'light') {
+        document.body.classList.add('light-mode');
+      }
+    });
+  </script>
 </body>
 </html>
