@@ -12,7 +12,7 @@
   <!-- Open Graph / Social Meta Tags -->
   <meta property="og:title" content="Golden Anime" />
   <meta property="og:description" content="Golden Anime—explore epic journeys, hidden treasures, and cozy adventures beneath a vibrant night sky." />
-  <meta property="og:image" content="https://your-domain.com/image.jpg" />
+  <meta property="og:image" content="https://your-domain.com/images/images.jpeg" />
   <meta property="og:url" content="https://your-domain.com/" />
   <meta property="og:type" content="website" />
 
@@ -61,7 +61,6 @@
     @keyframes spin {
       to { transform: rotate(360deg); }
     }
-
     /* Hide content until loader finishes */
     #content {
       display: none;
@@ -158,13 +157,14 @@
       font-size: 1.75rem;
       font-weight: bold;
       letter-spacing: 1px;
-      color: #ffd700; /* Golden accent */
+      color: #ffd700;
       text-shadow: 0 0 5px rgba(255, 215, 0, 0.7);
       transition: color 0.3s ease, text-shadow 0.3s ease;
     }
     .logo-img {
-      height: 40px;
-      width: auto;
+      width: 50px;
+      height: 50px;
+      object-fit: cover;
       margin-right: 10px;
       border-radius: 4px;
       box-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
@@ -239,7 +239,6 @@
       color: #cccccc;
       transition: color 0.3s ease;
     }
-    .btn-primary,
     .btn-secondary {
       padding: 0.75rem 2rem;
       font-size: 1rem;
@@ -247,23 +246,11 @@
       border-radius: 25px;
       cursor: pointer;
       transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease, color 0.3s ease;
-      margin: 0.5rem;
-    }
-    .btn-primary {
-      background: #ffd700;
-      color: #121212;
-      border: none;
-      box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
-    }
-    .btn-primary:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 12px rgba(255, 215, 0, 0.8);
-    }
-    .btn-secondary {
       background: transparent;
       color: #ffd700;
       border: 2px solid #ffd700;
       box-shadow: 0 0 8px rgba(255, 215, 0, 0.4);
+      margin: 0.5rem;
     }
     .btn-secondary:hover {
       transform: scale(1.05);
@@ -332,6 +319,8 @@
       .hero p { font-size: 1rem; }
       header { padding: 1rem; }
       nav ul { gap: 1rem; }
+      .logo-img { width: 40px; height: 40px; }
+      .btn-secondary { padding: 0.6rem 1.6rem; font-size: 0.9rem; }
     }
   </style>
 </head>
@@ -346,15 +335,13 @@
     <!-- Header / Navigation -->
     <header>
       <div class="logo">
-        <img src="image.jpg" alt="Golden Anime Logo" class="logo-img" />
+        <img src="images/images.jpeg" alt="Golden Anime Logo" class="logo-img" />
         Golden Anime
       </div>
       <nav>
         <ul>
-          <li><a href="#">Home</a></li>
-          <li><a href="#">Gallery</a></li>
-          <li><a href="#">Stories</a></li>
-          <li><a href="#">Contact</a></li>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="main.html">Explore</a></li>
         </ul>
       </nav>
       <button class="theme-toggle" id="theme-toggle">Toggle Theme</button>
@@ -364,39 +351,30 @@
     <section class="hero">
       <h1>Welcome to Golden Anime</h1>
       <p>
-        Step into a world where tales come alive under a shifting tapestry of hues. 
-        Here, every horizon glimmers with possibility, inviting you to embark on epic 
-        journeys, discover hidden treasures, and lose yourself in moments of wonder. 
-        Embrace the cozy glow, chase after legends, and uncover stories that ignite 
+        Step into a world where tales come alive under a shifting tapestry of hues.
+        Here, every horizon glimmers with possibility, inviting you to embark on epic
+        journeys, discover hidden treasures, and lose yourself in moments of wonder.
+        Embrace the cozy glow, chase after legends, and uncover stories that ignite
         the imagination.
       </p>
-      <div>
-        <button class="btn-primary" onclick="location.href='#'">Explore Now</button>
-        <button class="btn-secondary" onclick="location.href='main.html'">Go to Main Website</button>
-      </div>
+      <button class="btn-secondary" onclick="location.href='main.html'">
+        Explore
+      </button>
     </section>
-
-    <!-- (Optional) Additional Content Sections -->
-    <!--
-    <section class="featured">
-      <!-- You can add featured posts, trailers, or a rotating carousel here —
-           leave it hidden until you have images and content ready.
-    </section>
-    -->
 
     <!-- DMCA Section -->
     <div class="dmca-section">
       <button class="btn-dmca" onclick="location.href='dmca.html'">DMCA Report</button>
       <p class="dmca-text">
         If someone wants to remove any copyrighted content from our website,
-        please contact us. We take intellectual property seriously and will promptly 
+        please contact us. We take intellectual property seriously and will promptly
         review and honor removal requests.
       </p>
     </div>
 
     <!-- Footer -->
     <footer>
-      &copy; 2025 Golden Anime. All rights reserved. 
+      &copy; 2025 Golden Anime. All rights reserved.
       <br />
       <a href="#">Terms of Service</a> | <a href="#">Privacy Policy</a>
     </footer>
@@ -422,7 +400,7 @@
     const toggleButton = document.getElementById('theme-toggle');
     toggleButton.addEventListener('click', () => {
       document.body.classList.toggle('light-mode');
-      // Optional: store preference in localStorage
+      // Store preference
       if (document.body.classList.contains('light-mode')) {
         localStorage.setItem('theme', 'light');
       } else {
