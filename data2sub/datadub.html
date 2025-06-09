@@ -50,6 +50,24 @@
       border: 3px solid gold;
       border-radius: 10px;
       margin-bottom: 20px;
+      background-color: #000;
+    }
+    .video-loader {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 60px;
+      height: 60px;
+      margin-top: -30px;
+      margin-left: -30px;
+      border: 6px solid rgba(255, 255, 255, 0.1);
+      border-top: 6px solid gold;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      z-index: 10;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
     }
     .video-container iframe {
       position: absolute;
@@ -57,6 +75,7 @@
       left: 0;
       width: 100%;
       height: 100%;
+      border: none;
     }
     .controls {
       margin-bottom: 20px;
@@ -145,7 +164,8 @@
 
   <section class="video-section">
     <h1 class="video-title" id="video-title">Episode 1</h1>
-    <div class="video-container">
+    <div class="video-container" id="video-container">
+      <div class="video-loader" id="video-loader"></div>
       <iframe
         src=""
         allow="autoplay; encrypted-media"
@@ -179,35 +199,53 @@
       },
       {
         title: "Episode 2",
-        url: "https://drive.google.com/file/d/1q0nvPKLkuQ3VWT6pVXh5MG35tIAeZO78/preview"
+        url: "https://drive.google.com/file/d/16uZfHy0tAVgoHndc2JOsYzGz9uIb1TeN/preview"
       },
       {
         title: "Episode 3",
-        url: "https://drive.google.com/file/d/YOUR_FILE_ID_3/preview"
+        url: "" // Placeholder—add your preview link here
       },
       {
         title: "Episode 4",
-        url: "https://drive.google.com/file/d/YOUR_FILE_ID_4/preview"
+        url: "" // Placeholder
       },
       {
         title: "Episode 5",
-        url: "https://drive.google.com/file/d/YOUR_FILE_ID_5/preview"
+        url: "" // Placeholder
       },
       {
         title: "Episode 6",
-        url: "https://drive.google.com/file/d/YOUR_FILE_ID_6/preview"
+        url: "" // Placeholder
       }
     ];
 
     let currentEpisode = 0;
     let autoSkip = false;
     const iframe = document.getElementById("video-iframe");
+    const loader = document.getElementById("video-loader");
     const title = document.getElementById("video-title");
+
+    function showLoader() {
+      loader.style.display = "block";
+    }
+
+    function hideLoader() {
+      loader.style.display = "none";
+    }
 
     function loadEpisode(index) {
       if (index < 0 || index >= episodes.length) return;
+      if (!episodes[index].url) return; // Skip if no URL
+
       currentEpisode = index;
+      showLoader();
       iframe.src = episodes[index].url;
+
+      // Once iframe loads, hide loader
+      iframe.onload = () => {
+        hideLoader();
+      };
+
       title.textContent = episodes[index].title;
     }
 
