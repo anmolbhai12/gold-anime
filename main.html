@@ -20,6 +20,14 @@
   <title>Golden Anime Main</title>
 
   <style>
+    :root {
+      --bg-dark: #121212;
+      --bg-light: #1f1f1f;
+      --text-light: #e0e0e0;
+      --accent-color: #ffd700;
+      --shadow-dark: rgba(0, 0, 0, 0.7);
+    }
+
     /* ---------- Base Reset ---------- */
     * {
       margin: 0;
@@ -29,8 +37,8 @@
     html, body {
       height: 100%;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      color: #e0e0e0;
-      background-color: #121212;
+      color: var(--text-light);
+      background-color: var(--bg-dark);
       overflow-x: hidden;
     }
     a {
@@ -45,7 +53,7 @@
       left: 0;
       width: 100vw;
       height: 100vh;
-      background-color: #121212;
+      background-color: var(--bg-dark);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -53,7 +61,7 @@
     }
     .spinner {
       border: 6px solid rgba(255, 255, 255, 0.1);
-      border-top: 6px solid #ffd700;
+      border-top: 6px solid var(--accent-color);
       border-radius: 50%;
       width: 60px;
       height: 60px;
@@ -62,7 +70,6 @@
     @keyframes spin {
       to { transform: rotate(360deg); }
     }
-    /* Hide content until loader finishes */
     #content {
       display: none;
     }
@@ -79,9 +86,9 @@
       z-index: -1;
     }
     @keyframes gradientShift {
-      0%   { background-position: 0%   50%; }
-      50%  { background-position: 100% 50%; }
-      100% { background-position: 0%   50%; }
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
 
     /* ---------- Header / Logo ---------- */
@@ -105,15 +112,15 @@
       height: 50px;
       object-fit: cover;
       border-radius: 6px;
-      box-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
+      box-shadow: 0 0 8px var(--accent-color);
       margin-right: 10px;
     }
     .logo-text {
       font-size: 1.75rem;
       font-weight: bold;
       letter-spacing: 1px;
-      color: #ffd700;
-      text-shadow: 0 0 5px rgba(255, 215, 0, 0.7);
+      color: var(--accent-color);
+      text-shadow: 0 0 5px var(--accent-color);
     }
 
     /* ---------- Carousel Container ---------- */
@@ -124,7 +131,7 @@
       position: relative;
       overflow: hidden;
       border-radius: 10px;
-      box-shadow: 0 0 12px rgba(0, 0, 0, 0.7);
+      box-shadow: 0 0 12px var(--shadow-dark);
     }
     .carousel-slides {
       display: flex;
@@ -140,17 +147,17 @@
       display: block;
     }
 
-    /* ---------- Content Grid ---------- */
+    /* ---------- Content Grid Section ---------- */
     .content-section {
       max-width: 1200px;
       margin: 2rem auto;
       padding: 0 1rem;
     }
     .content-title {
-      font-size: 1.5rem;
+      font-size: 1.75rem;
       margin-bottom: 1rem;
-      color: #ffd700;
-      text-shadow: 0 0 4px rgba(255, 215, 0, 0.6);
+      color: var(--accent-color);
+      text-shadow: 0 0 4px var(--accent-color);
       text-align: center;
     }
     .content-grid {
@@ -159,14 +166,15 @@
       gap: 1rem;
     }
     .content-item {
-      background: rgba(0, 0, 0, 0.5);
+      background: var(--bg-light);
       border-radius: 8px;
       overflow: hidden;
-      box-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
-      transition: transform 0.2s ease;
+      box-shadow: 0 0 8px var(--shadow-dark);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
     .content-item:hover {
       transform: scale(1.05);
+      box-shadow: 0 0 12px var(--accent-color);
     }
     .content-item img {
       width: 100%;
@@ -204,7 +212,7 @@
     }
     .dmca-text {
       font-size: 0.95rem;
-      color: #f0f0f0;
+      color: var(--text-light);
       line-height: 1.4;
     }
 
@@ -218,7 +226,7 @@
       color: #888;
     }
     footer a {
-      color: #ffd700;
+      color: var(--accent-color);
       text-decoration: none;
       transition: color 0.3s ease;
     }
@@ -232,7 +240,7 @@
         margin: 1rem auto;
       }
       .content-title {
-        font-size: 1.25rem;
+        font-size: 1.5rem;
       }
       .content-grid {
         grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
@@ -270,7 +278,7 @@
     <!-- Carousel Section -->
     <div class="carousel-container">
       <div class="carousel-slides" id="carousel-slides">
-        <!-- Slides will be injected here via JavaScript -->
+        <!-- Slides injected by JS -->
       </div>
     </div>
 
@@ -278,7 +286,7 @@
     <section class="content-section">
       <h2 class="content-title">Featured Movies</h2>
       <div class="content-grid" id="content-grid">
-        <!-- Content items will be injected here via JavaScript -->
+        <!-- Grid items injected by JS -->
       </div>
     </section>
 
@@ -287,14 +295,14 @@
       <button class="btn-dmca" onclick="location.href='dmca.html'">DMCA Report</button>
       <p class="dmca-text">
         If someone wants to remove any copyrighted content from our website,
-        please contact us. We take intellectual property seriously and will promptly 
+        please contact us. We take intellectual property seriously and will promptly
         review and honor removal requests.
       </p>
     </div>
 
     <!-- Footer -->
     <footer>
-      &copy; 2025 Golden Anime. All rights reserved. 
+      &copy; 2025 Golden Anime. All rights reserved.
       <br />
       <a href="index.html">Home</a> | <a href="#">Privacy Policy</a>
     </footer>
@@ -302,7 +310,7 @@
 
   <!-- JavaScript for Loader, Carousel, and Content Generation -->
   <script>
-    // Loader: show spinner for 3 seconds, then reveal content
+    // Loader
     window.addEventListener('load', () => {
       setTimeout(() => {
         const loader = document.getElementById('loader');
@@ -316,73 +324,53 @@
       }, 3000);
     });
 
-    // Sample content data array: add more items as needed
+    // Sample data
     const contentData = [
-      {
-        image: 'images/golden-boy-1540845262268.jpg',
-        link: 'dat/datadub.html'
-      },
-      {
-        image: 'image2.jpg',
-        link: 'movie2.html'
-      },
-      {
-        image: 'image3.jpg',
-        link: 'movie3.html'
-      },
-      {
-        image: 'image4.jpg',
-        link: 'movie4.html'
-      }
-      // ... you can append more { image: 'imageX.jpg', link: 'movieX.html' }
+      { image: 'images/golden-boy-1540845262268.jpg', link: 'dat/datadub.html' },
+      { image: 'images/movie2.jpg', link: 'movie2.html' },
+      { image: 'images/movie3.jpg', link: 'movie3.html' },
+      { image: 'images/movie4.jpg', link: 'movie4.html' }
     ];
 
-    // Insert content items into the grid
     function generateContentGrid() {
-      const gridContainer = document.getElementById('content-grid');
+      const grid = document.getElementById('content-grid');
       contentData.forEach(item => {
-        const anchor = document.createElement('a');
-        anchor.href = item.link;
-        anchor.classList.add('content-item');
+        const a = document.createElement('a');
+        a.href = item.link;
+        a.className = 'content-item';
         const img = document.createElement('img');
         img.src = item.image;
         img.alt = 'Movie Thumbnail';
-        anchor.appendChild(img);
-        gridContainer.appendChild(anchor);
+        a.appendChild(img);
+        grid.appendChild(a);
       });
     }
 
-    // Initialize carousel slides
     function generateCarousel() {
-      const slidesContainer = document.getElementById('carousel-slides');
+      const slides = document.getElementById('carousel-slides');
       contentData.forEach(item => {
-        const slideDiv = document.createElement('div');
-        slideDiv.classList.add('carousel-slide');
-        const anchor = document.createElement('a');
-        anchor.href = item.link;
+        const slide = document.createElement('div');
+        slide.className = 'carousel-slide';
+        const a = document.createElement('a');
+        a.href = item.link;
         const img = document.createElement('img');
         img.src = item.image;
         img.alt = 'Featured Movie';
-        anchor.appendChild(img);
-        slideDiv.appendChild(anchor);
-        slidesContainer.appendChild(slideDiv);
+        a.appendChild(img);
+        slide.appendChild(a);
+        slides.appendChild(slide);
       });
     }
 
-    // Carousel auto-slide logic
     function startCarousel() {
-      const slidesContainer = document.getElementById('carousel-slides');
-      const totalSlides = contentData.length;
-      let currentIndex = 0;
-
+      const slides = document.getElementById('carousel-slides');
+      let idx = 0;
       setInterval(() => {
-        currentIndex = (currentIndex + 1) % totalSlides;
-        const translateX = -currentIndex * 100;
-        slidesContainer.style.transform = `translateX(${translateX}%)`;
-      }, 2000);
+        idx = (idx + 1) % contentData.length;
+        slides.style.transform = `translateX(${-idx * 100}%)`;
+      }, 3000);
     }
 
-    // On DOM ready, build content and carousel
     document.addEventListener('DOMContentLoaded', () => {
       generateContentGrid();
       generateCarousel();
