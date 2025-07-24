@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Watch full anime movies in subbed and dubbed versions. Enjoy seamless episodes with autoplay and navigation. Contact us via DMCA for content removal.">
+  <meta name="keywords" content="anime, full anime movies, anime episodes, subbed anime, dubbed anime, DMCA, watch anime online">
+  <meta name="author" content="Golden Anime">
+  <title>Golden Anime</title>
+  <link rel="icon" href="image.jpg" type="image/jpeg" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #000;
+      color: #fff;
+      background-image: linear-gradient(to right, #111, #222);
+    }
+
+    header {
+      background-color: #111;
+      padding: 20px;
+      text-align: center;
+      border-bottom: 2px solid gold;
+    }
+
+    header h1 {
+      margin: 0;
+      color: gold;
+    }
+
+    .description {
+      text-align: center;
+      padding: 10px 30px;
+      max-width: 800px;
+      margin: auto;
+      font-size: 1.1em;
+    }
+
+    .video-section {
+      padding: 20px;
+      text-align: center;
+    }
+
+    .video-title {
+      font-size: 1.8em;
+      margin-bottom: 10px;
+      color: #ffcc00;
+    }
+
+    .video-container {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border: 3px solid gold;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+
+    .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .controls {
+      margin-bottom: 20px;
+    }
+
+    .controls button {
+      background: none;
+      border: 2px solid gold;
+      color: gold;
+      padding: 10px 20px;
+      margin: 5px;
+      cursor: pointer;
+      border-radius: 5px;
+      font-size: 1em;
+      transition: all 0.3s ease;
+    }
+
+    .controls button:hover {
+      background: gold;
+      color: black;
+    }
+
+    .controls button:last-child {
+      border-color: #66ccff;
+      color: #66ccff;
+      box-shadow: 0 0 6px rgba(102, 204, 255, 0.5);
+    }
+
+    .controls button:last-child:hover {
+      background: rgba(102, 204, 255, 0.1);
+      box-shadow: 0 0 8px rgba(102, 204, 255, 0.8);
+    }
+
+    .episode-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .episode-button {
+      background-color: #333;
+      border: 1px solid gold;
+      color: gold;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 0.9em;
+      transition: background 0.3s;
+    }
+
+    .episode-button:hover {
+      background-color: gold;
+      color: black;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      border-top: 1px solid #333;
+      font-size: 0.9em;
+    }
+
+    footer a {
+      color: #66ccff;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="image.jpg" alt="Logo" height="80">
+    <h1>Golden Anime</h1>
+  </header>
+
+  <div class="description">
+    <p>Welcome to Golden Anime! Here you can watch full anime movies and episodes in subbed or dubbed versions. Enjoy a smooth streaming experience with auto skip and easy episode navigation. If you are a content owner and wish to remove any media, please <a href="dmca.html">contact us</a> via our DMCA form.</p>
+  </div>
+
+  <section class="video-section">
+    <h1 class="video-title" id="video-title">Episode 1</h1>
+    <div class="video-container" id="video-container">
+      <iframe
+        src=""
+        allow="autoplay; encrypted-media"
+        allowfullscreen
+        title="Episode Player"
+        id="video-iframe"
+      ></iframe>
+    </div>
+
+    <div class="controls">
+      <button id="prev-btn">Previous Episode</button>
+      <button id="auto-skip-btn">Auto Skip Next</button>
+      <button id="next-btn">Next Episode</button>
+      <button onclick="location.href='sub.html'">Sub</button>
+    </div>
+
+    <div class="episode-list" id="episode-list">
+      <!-- Episode buttons will be added dynamically -->
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2025 Golden Anime | <a href="dmca.html">DMCA</a>
+  </footer>
+
+  <script>
+    const episodes = [
+      { title: "Episode 1", url: "https://drive.google.com/embed/mpN3dlq4yPHy" },
+      { title: "Episode 2", url: "https://www.youtube.com/embed/lU3zN5dYTcY" },
+      { title: "Episode 3", url: "https://www.youtube.com/embed/g6kNzw1F1AA" },
+      { title: "Episode 4", url: "https://www.youtube.com/embed/mG7DgE-BceQ" },
+      { title: "Episode 5", url: "https://www.youtube.com/embed/NKZo1wqcjBw" },
+    ];
+
+    let currentEpisode = 0;
+    let autoSkip = false;
+    const iframe = document.getElementById("video-iframe");
+    const title = document.getElementById("video-title");
+
+    function loadEpisode(index) {
+      if (index >= 0 && index < episodes.length) {
+        currentEpisode = index;
+        iframe.src = episodes[index].url + "?autoplay=1";
+        title.textContent = episodes[index].title;
+      }
+    }
+
+    document.getElementById("prev-btn").addEventListener("click", () => {
+      if (currentEpisode > 0) {
+        loadEpisode(currentEpisode - 1);
+      }
+    });
+
+    document.getElementById("next-btn").addEventListener("click", () => {
+      if (currentEpisode < episodes.length - 1) {
+        loadEpisode(currentEpisode + 1);
+      }
+    });
+
+    document.getElementById("auto-skip-btn").addEventListener("click", () => {
+      autoSkip = !autoSkip;
+      alert("Auto Skip is now " + (autoSkip ? "enabled" : "disabled"));
+    });
+
+    // Load episodes as buttons
+    const episodeList = document.getElementById("episode-list");
+    episodes.forEach((ep, index) => {
+      const button = document.createElement("button");
+      button.textContent = ep.title;
+      button.classList.add("episode-button");
+      button.addEventListener("click", () => loadEpisode(index));
+      episodeList.appendChild(button);
+    });
+
+    // Load the first episode on page load
+    window.onload = () => {
+      loadEpisode(0);
+    };
+  </script>
+</body>
+</html>
