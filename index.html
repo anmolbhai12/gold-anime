@@ -1,255 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <!-- Basic Meta Tags -->
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Golden Anime Main – Dark anime & spooky movie streaming platform with a vibrant, shifting background." />
-  <meta name="keywords" content="Golden Anime, anime streaming, dark theme, spooky, movie carousel, responsive, TV shows" />
-  <meta name="author" content="Golden Anime Team" />
-  <meta name="theme-color" content="#121212" />
+<!-- Header / Navigation -->
+<header>
+<div class="logo">
+        <img src="images/images.jpeg" alt="Golden Anime Logo" class="logo-img" />
+        <img src="images/artworks-000163391708-31l9sv-t500x500.jpg" alt="Golden Anime Logo" class="logo-img" />
+Golden Anime
+</div>
+<nav>
+<ul>
+<li><a href="index.html">Home</a></li>
+<li><a href="main.html">Explore</a></li>
+</ul>
+</nav>
+<button class="theme-toggle" id="theme-toggle">Toggle Theme</button>
+</header>
 
-  <title>Golden Anime Main</title>
-
-  <style>
-    :root {
-      --bg-dark: #121212;
-      --bg-light: #1f1f1f;
-      --text-light: #e0e0e0;
-      --accent: #ffd700;
-      --shadow: rgba(0, 0, 0, 0.7);
-    }
-
-    /* ─── Base Reset ─── */
-    * { margin:0; padding:0; box-sizing:border-box; }
-    html, body {
-      height:100%; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      color:var(--text-light); background:var(--bg-dark); overflow-x:hidden;
-    }
-    a { text-decoration:none; color:inherit; }
-
-    /* ─── Background Animation ─── */
-    body::before {
-      content:""; position:fixed; top:0; left:0;
-      width:100vw; height:100vh; z-index:-1;
-      background: linear-gradient(45deg, #1a1a1a, #2b2b2b, #1a1a1a);
-      background-size:300% 300%;
-      animation: gradientShift 15s ease infinite, hueShift 20s linear infinite;
-    }
-    @keyframes gradientShift {
-      0% { background-position:0% 50% }
-      50% { background-position:100% 50% }
-      100% { background-position:0% 50% }
-    }
-    @keyframes hueShift {
-      0% { filter: hue-rotate(0deg) }
-      100% { filter: hue-rotate(360deg) }
-    }
-
-    /* ─── Loader ─── */
-    #loader {
-      position:fixed; inset:0; background:var(--bg-dark);
-      display:flex; align-items:center; justify-content:center; z-index:9999;
-    }
-    .spinner {
-      border:6px solid rgba(255,255,255,0.1);
-      border-top:6px solid var(--accent);
-      border-radius:50%; width:60px; height:60px;
-      animation: spin 1s linear infinite;
-    }
-    @keyframes spin { to { transform:rotate(360deg) } }
-    #content { display:none }
-
-    /* ─── Header ─── */
-    header {
-      position:sticky; top:0; z-index:10;
-      background:rgba(0,0,0,0.4); backdrop-filter:blur(5px);
-      display:flex; align-items:center; padding:1rem 2rem;
-    }
-    .logo-img {
-      width:50px; height:50px; object-fit:cover; border-radius:6px;
-      box-shadow:0 0 8px var(--accent); margin-right:10px;
-    }
-    .logo-text {
-      font-size:1.75rem; font-weight:bold; letter-spacing:1px;
-      color:var(--accent); text-shadow:0 0 5px var(--accent);
-    }
-
-    /* ─── Carousel ─── */
-    .carousel-container {
-      max-width:1200px; margin:2rem auto; overflow:hidden;
-      border-radius:10px; box-shadow:0 0 12px var(--shadow);
-    }
-    .carousel-slides {
-      display:flex; transition:transform .5s ease-in-out;
-    }
-    .carousel-slide { min-width:100%; }
-    .carousel-slide img { width:100%; display:block; }
-
-    /* ─── Content Grids ─── */
-    .section {
-      max-width:1200px; margin:2rem auto; padding:0 1rem;
-    }
-    .section h2 {
-      text-align:center; margin-bottom:1rem;
-      font-size:1.75rem; color:var(--accent);
-      text-shadow:0 0 4px var(--accent);
-    }
-    .grid {
-      display:grid; gap:1rem;
-      grid-template-columns:repeat(auto-fill,minmax(140px,1fr));
-    }
-    .item {
-      background:var(--bg-light); border-radius:8px;
-      box-shadow:0 0 8px var(--shadow); overflow:hidden;
-      transition:transform .2s, box-shadow .2s;
-    }
-    .item:hover {
-      transform:scale(1.05); box-shadow:0 0 12px var(--accent);
-    }
-    .item img { width:100%; display:block; }
-
-    /* ─── DMCA & Footer ─── */
-    .dmca {
-      text-align:center; margin:2rem auto; padding:1rem 2rem;
-      background:rgba(0,0,0,0.5); border-radius:8px; max-width:800px;
-    }
-    .btn-dmca {
-      display:inline-block; margin-bottom:.5rem;
-      padding:.6rem 1.8rem; border:2px solid #f66;
-      color:#f66; border-radius:20px;
-      transition:transform .2s,box-shadow .2s;
-    }
-    .btn-dmca:hover {
-      transform:scale(1.05);
-      box-shadow:0 0 10px rgba(255,102,102,0.6);
-      background:rgba(255,102,102,0.1);
-    }
-    .dmca p { color:var(--text-light); line-height:1.4; }
-
-    footer {
-      padding:1.5rem 2rem; text-align:center;
-      background:rgba(0,0,0,0.6); color:#888;
-    }
-    footer a { color:var(--accent); transition:color .3s; }
-    footer a:hover { text-decoration:underline; }
-
-    /* ─── Responsive ─── */
-    @media (max-width:768px) {
-      header { padding:.75rem 1rem }
-      .logo-img { width:40px; height:40px }
-      .logo-text { font-size:1.5rem }
-      .grid { grid-template-columns:repeat(auto-fill,minmax(100px,1fr)) }
-    }
-  </style>
-</head>
-<body>
-
-  <!-- Loader -->
-  <div id="loader"><div class="spinner"></div></div>
-
-  <!-- Main Content -->
-  <div id="content">
-    <header>
-      <img src="images/images.jpeg" alt="Golden Anime Logo" class="logo-img">
-      <span class="logo-text">Golden Anime</span>
-    </header>
-
-    <!-- Carousel -->
-    <div class="carousel-container">
-      <div class="carousel-slides" id="carousel-slides"></div>
-    </div>
-
-    <!-- Featured Movies -->
-    <section class="section">
-      <h2>Featured Movies</h2>
-      <div class="grid" id="movies-grid"></div>
-    </section>
-
-    <!-- Featured TV Shows -->
-    <section class="section">
-      <h2>Featured TV Shows</h2>
-      <div class="grid" id="tv-grid"></div>
-    </section>
-
-    <!-- DMCA -->
-    <div class="dmca">
-      <button class="btn-dmca" onclick="location.href='dmca.html'">DMCA Report</button>
-      <p>
-        If you need any content removed, contact us. We honor all legitimate IP claims promptly.
-      </p>
-    </div>
-
-    <footer>
-      &copy; 2025 Golden Anime. All rights reserved.
-      <br><a href="index.html">Home</a> | <a href="#">Privacy Policy</a>
-    </footer>
-  </div>
-
-  <script>
-    // Loader logic
-    window.addEventListener('load', () => {
-      setTimeout(() => {
-        document.getElementById('loader').style.display = 'none';
-        document.getElementById('content').style.display = 'block';
-      }, 2000);
-    });
-
-    // Sample data arrays
-    const movies = [
-      { img:'images/golden-boy-1540845262268.jpg', link:'dat/datadub.html' },
-      { img:'images/movie2.jpg', link:'movie2.html' },
-      { img:'images/movie3.jpg', link:'movie3.html' },
-      { img:'images/movie4.jpg', link:'movie4.html' }
-    ];
-    const tvShows = [
-      { img:'images/tv1.jpg', link:'tv1.html' },
-      { img:'images/tv2.jpg', link:'tv2.html' },
-      { img:'images/tv3.jpg', link:'tv3.html' },
-      { img:'images/tv4.jpg', link:'tv4.html' }
-    ];
-
-    // Populate a grid container
-    function fillGrid(arr, containerId){
-      const container = document.getElementById(containerId);
-      arr.forEach(item=>{
-        const a = document.createElement('a');
-        a.href = item.link; a.className = 'item';
-        const img = document.createElement('img');
-        img.src = item.img; img.alt = '';
-        a.appendChild(img);
-        container.appendChild(a);
-      });
-    }
-
-    // Build carousel (uses movies as slides)
-    function buildCarousel(){
-      const slides = document.getElementById('carousel-slides');
-      movies.forEach(item=>{
-        const div = document.createElement('div');
-        div.className = 'carousel-slide';
-        const a = document.createElement('a');
-        a.href = item.link;
-        const img = document.createElement('img');
-        img.src = item.img; img.alt = '';
-        a.appendChild(img);
-        div.appendChild(a);
-        slides.appendChild(div);
-      });
-      // auto-slide
-      let idx=0;
-      setInterval(()=>{
-        idx = (idx+1)%movies.length;
-        slides.style.transform = `translateX(${-idx*100}%)`;
-      }, 3000);
-    }
-
-    document.addEventListener('DOMContentLoaded',()=>{
-      fillGrid(movies,'movies-grid');
-      fillGrid(tvShows,'tv-grid');
-      buildCarousel();
-    });
-  </script>
-</body>
-</html>
+<!-- Hero Section -->
+<section class="hero">
+<h1>Welcome to Golden Anime</h1>
+<p>
+Step into a world where tales come alive under a shifting tapestry of hues.
+Here, every horizon glimmers with possibility, inviting you to embark on epic
+journeys, discover hidden treasures, and lose yourself in moments of wonder.
+Embrace the cozy glow, chase after legends, and uncover stories that ignite
+the imagination.
+</p>
+<button class="btn-secondary" onclick="location.href='main.html'">
+Explore
+</button>
