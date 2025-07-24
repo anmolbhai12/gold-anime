@@ -12,9 +12,16 @@
     body {
       margin: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #000;
+      background: linear-gradient(45deg, #0f0f0f, #1a1a1a, #000000);
+      background-size: 400% 400%;
+      animation: gradientShift 20s ease infinite;
       color: #fff;
-      background-image: linear-gradient(to right, #111, #222);
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
 
     header {
@@ -27,6 +34,11 @@
     header h1 {
       margin: 0;
       color: gold;
+      font-size: 2.5em;
+    }
+
+    .logo {
+      height: 80px;
     }
 
     .description {
@@ -87,17 +99,6 @@
       color: black;
     }
 
-    .controls button:last-child {
-      border-color: #66ccff;
-      color: #66ccff;
-      box-shadow: 0 0 6px rgba(102, 204, 255, 0.5);
-    }
-
-    .controls button:last-child:hover {
-      background: rgba(102, 204, 255, 0.1);
-      box-shadow: 0 0 8px rgba(102, 204, 255, 0.8);
-    }
-
     .episode-list {
       display: flex;
       flex-wrap: wrap;
@@ -127,6 +128,7 @@
       padding: 20px;
       border-top: 1px solid #333;
       font-size: 0.9em;
+      margin-top: 50px;
     }
 
     footer a {
@@ -141,19 +143,19 @@
 </head>
 <body>
   <header>
-    <img src="image.jpg" alt="Logo" height="80">
+    <img src="image.jpg" alt="Golden Boy Logo" class="logo">
     <h1>Golden Anime</h1>
   </header>
 
   <div class="description">
-    <p>Welcome to Golden Anime! Here you can watch full anime movies and episodes in subbed or dubbed versions. Enjoy a smooth streaming experience with auto skip and easy episode navigation. If you are a content owner and wish to remove any media, please <a href="dmca.html">contact us</a> via our DMCA form.</p>
+    <p>Welcome to <strong>Golden Anime</strong>! Watch full anime movies and episodes for free in subbed or dubbed versions. Enjoy smooth playback, easy navigation, and autoplay features. If you own any content and want it removed, please <a href="dmca.html">contact us</a> via our DMCA form.</p>
   </div>
 
   <section class="video-section">
-    <h1 class="video-title" id="video-title">Episode 1</h1>
+    <h2 class="video-title" id="video-title">Episode 1</h2>
     <div class="video-container" id="video-container">
       <iframe
-        src=""
+        src="https://drive.google.com/file/d/1PzRULzhYxB_sKoEPVyd-mpN3dlq4yPHy/preview"
         allow="autoplay; encrypted-media"
         allowfullscreen
         title="Episode Player"
@@ -162,14 +164,12 @@
     </div>
 
     <div class="controls">
-      <button id="prev-btn">Previous Episode</button>
-      <button id="auto-skip-btn">Auto Skip Next</button>
-      <button id="next-btn">Next Episode</button>
-      <button onclick="location.href='sub.html'">Sub</button>
+      <button id="prev-btn">Previous</button>
+      <button id="next-btn">Next</button>
     </div>
 
     <div class="episode-list" id="episode-list">
-      <!-- Episode buttons will be added dynamically -->
+      <!-- Episode buttons will appear here -->
     </div>
   </section>
 
@@ -179,22 +179,28 @@
 
   <script>
     const episodes = [
-      { title: "Episode 1", url: "https://drive.google.com/embed/mpN3dlq4yPHy" },
-      { title: "Episode 2", url: "https://www.youtube.com/embed/lU3zN5dYTcY" },
-      { title: "Episode 3", url: "https://www.youtube.com/embed/g6kNzw1F1AA" },
-      { title: "Episode 4", url: "https://www.youtube.com/embed/mG7DgE-BceQ" },
-      { title: "Episode 5", url: "https://www.youtube.com/embed/NKZo1wqcjBw" },
+      {
+        title: "Episode 1",
+        url: "https://drive.google.com/file/d/1PzRULzhYxB_sKoEPVyd-mpN3dlq4yPHy/preview"
+      },
+      {
+        title: "Episode 2",
+        url: "https://drive.google.com/file/d/your-episode-2-id/preview"
+      },
+      {
+        title: "Episode 3",
+        url: "https://drive.google.com/file/d/your-episode-3-id/preview"
+      }
     ];
 
     let currentEpisode = 0;
-    let autoSkip = false;
     const iframe = document.getElementById("video-iframe");
     const title = document.getElementById("video-title");
 
     function loadEpisode(index) {
       if (index >= 0 && index < episodes.length) {
         currentEpisode = index;
-        iframe.src = episodes[index].url + "?autoplay=1";
+        iframe.src = episodes[index].url;
         title.textContent = episodes[index].title;
       }
     }
@@ -211,12 +217,6 @@
       }
     });
 
-    document.getElementById("auto-skip-btn").addEventListener("click", () => {
-      autoSkip = !autoSkip;
-      alert("Auto Skip is now " + (autoSkip ? "enabled" : "disabled"));
-    });
-
-    // Load episodes as buttons
     const episodeList = document.getElementById("episode-list");
     episodes.forEach((ep, index) => {
       const button = document.createElement("button");
@@ -226,10 +226,7 @@
       episodeList.appendChild(button);
     });
 
-    // Load the first episode on page load
-    window.onload = () => {
-      loadEpisode(0);
-    };
+    window.onload = () => loadEpisode(0);
   </script>
 </body>
 </html>
